@@ -33,9 +33,13 @@ def buffer_zero(ingeo: Union[GDF, Polygon]) -> Union[GDF, Polygon]:
 def close_holes(ingeo: Union[GDF, Polygon]) -> Union[GDF, Polygon]:
     """Close polygon holes by limitation to the exterior ring."""
     def _close_holes(poly: Polygon):
-        if poly.interiors:
-            return Polygon(list(poly.exterior.coords))
-        else:
+        #print(poly)
+        try:
+            if poly.interiors:
+                return Polygon(list(poly.exterior.coords))
+            else:
+                return poly
+        except:
             return poly
 
     if isinstance(ingeo, Polygon):
@@ -282,12 +286,15 @@ def invert_y_axis(ingeo: Union[Polygon, GDF],
     elif isinstance(ingeo, GDF):
         ingeo.geometry = ingeo.geometry.apply(lambda _p: _invert_y_axis(poly=_p, reference_height=reference_height))
         return ingeo
-    
-    
+
+
+
+
 def print_len(df):
-    print(len(df))
-#     return df
-    
+    #print(len(df))
+    return df
+
+
 
 def cut_chip_geometries(vector_df, raster_width, raster_height, raster_transform, chip_width=128, chip_height=128, first_n_chips=None):
     """Workflow to cut a vector geodataframe to chip geometries.
