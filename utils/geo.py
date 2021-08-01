@@ -282,7 +282,12 @@ def invert_y_axis(ingeo: Union[Polygon, GDF],
     elif isinstance(ingeo, GDF):
         ingeo.geometry = ingeo.geometry.apply(lambda _p: _invert_y_axis(poly=_p, reference_height=reference_height))
         return ingeo
-
+    
+    
+def print_len(df):
+    print(len(df))
+#     return df
+    
 
 def cut_chip_geometries(vector_df, raster_width, raster_height, raster_transform, chip_width=128, chip_height=128, first_n_chips=None):
     """Workflow to cut a vector geodataframe to chip geometries.
