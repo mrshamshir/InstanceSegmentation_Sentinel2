@@ -179,7 +179,7 @@ def plot_coco(inpath_json, inpath_image_folder, start=0, end=2):
     extracted = utils.coco.coco_to_shapely(inpath_json)
 
     for key in sorted(extracted.keys())[start:end]:
-        print(key)
+        #print(key)
         plt.figure(figsize=(5, 5))
         plt.axis('off')
 
