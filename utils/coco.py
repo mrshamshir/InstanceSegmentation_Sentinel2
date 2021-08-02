@@ -183,10 +183,10 @@ def plot_coco(inpath_json, inpath_image_folder, start=0, end=2):
         plt.figure(figsize=(5, 5))
         plt.axis('off')
 
-        img = np.asarray(pilimage.open(rf'{inpath_image_folder}/{key}'))*3
+        img = np.asarray(pilimage.open(rf'{inpath_image_folder}/{key}'))
         plt.imshow(img, interpolation='none')
 
-        mp = extracted[key]
-        patches = [PolygonPatch(p, ec='r', fill=False, alpha=1, lw=0.7, zorder=1) for p in mp]
-        plt.gca().add_collection(PatchCollection(patches, match_original=True))
-        plt.show()
+        #mp = extracted[key]
+        #patches = [PolygonPatch(p, ec='r', fill=False, alpha=1, lw=0.7, zorder=1) for p in mp]
+        #plt.gca().add_collection(PatchCollection(patches, match_original=True))
+        #plt.show()
