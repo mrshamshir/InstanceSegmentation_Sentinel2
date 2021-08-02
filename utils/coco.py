@@ -173,6 +173,7 @@ def coco_to_shapely(inpath_json: Union[Path, str],
     return extracted_geometries
 
 
+
 def plot_coco(inpath_json, inpath_image_folder, start=0, end=2):
     """Plot COCO annotations and image chips"""
     extracted = utils.coco.coco_to_shapely(inpath_json)
@@ -182,7 +183,7 @@ def plot_coco(inpath_json, inpath_image_folder, start=0, end=2):
         plt.figure(figsize=(5, 5))
         plt.axis('off')
 
-        img = np.asarray(pilimage.open(rf'{inpath_image_folder}/{key}')
+        img = np.asarray(pilimage.open(rf'{inpath_image_folder}/{key}'))*3
         plt.imshow(img, interpolation='none')
 
         mp = extracted[key]
