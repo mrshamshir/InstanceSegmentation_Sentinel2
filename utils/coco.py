@@ -37,7 +37,7 @@ def train_test_split(chip_dfs: Dict, test_size=0.2, seed=1) -> Tuple[Dict, Dict]
     return train_chip_dfs, val_chip_dfs
 
 
-def format_coco(chip_dfs: Dict, chip_width: int, chip_height: int):
+def format_coco(chip_dfs: Dict, chip_width: int, chip_height: int,annotation_id):
     """Format train and test chip geometries to COCO json format.
 
     Args:
@@ -80,7 +80,7 @@ def format_coco(chip_dfs: Dict, chip_width: int, chip_height: int):
                         'id': 1,  # needs to match category_id.
                         'name': 'agfields_singleclass'}]}
 
-    annotation_id = 1
+#    annotation_id = 1
 
     for chip_name in chip_dfs.keys():
 
@@ -110,8 +110,8 @@ def format_coco(chip_dfs: Dict, chip_width: int, chip_height: int):
                            "image_id": int(chip_id),
                            "category_id": 1,  # with multiple classes use "category_id" : row.reclass_id
                            "mycategory_name": 'agfields_singleclass',
-                           "old_multiclass_category_name": row['r_lc_name'],
-                           "old_multiclass_category_id": row['r_lc_id'],
+                           "old_multiclass_category_name": '1', #row['r_lc_name'],
+                           "old_multiclass_category_id": 1, #row['r_lc_id'],
                            "bbox": coco_bbox,
                            "area": row.geometry.area,
                            "iscrowd": 0,
@@ -133,7 +133,7 @@ def move_coco_val_images(inpath_train_folder, val_chips_list):
     outpath_val_folder = inpath_train_folder.parent / 'val2016'
     Path(outpath_val_folder).mkdir(parents=True, exist_ok=True)
     for chip in val_chips_list:
-        Path(rf'{inpath_train_folder}\{chip.replace("val", "train")}.jpg').replace(rf'{outpath_val_folder}\{chip}.jpg')
+        Path(rf'{inpath_train_folder}/{chip.replace("val", "train")}.jpg').replace(rf'{outpath_val_folder}/{chip}.jpg')
 
 
 def coco_to_shapely(inpath_json: Union[Path, str],
@@ -178,11 +178,11 @@ def plot_coco(inpath_json, inpath_image_folder, start=0, end=2):
     extracted = utils.coco.coco_to_shapely(inpath_json)
 
     for key in sorted(extracted.keys())[start:end]:
-        print(key)
+        #print(key)
         plt.figure(figsize=(5, 5))
         plt.axis('off')
 
-        img = np.asarray(pilimage.open(rf'{inpath_image_folder}\{key}'))
+        img = np.asarray(pilimage.open(rf'{inpath_image_folder}/{key}'))*3
         plt.imshow(img, interpolation='none')
 
         mp = extracted[key]
