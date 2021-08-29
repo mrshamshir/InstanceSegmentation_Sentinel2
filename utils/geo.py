@@ -291,7 +291,7 @@ def invert_y_axis(ingeo: Union[Polygon, GDF],
 
 
 def print_len(df):
-    #print(len(df))
+    print(len(df))
     return df
 
 
